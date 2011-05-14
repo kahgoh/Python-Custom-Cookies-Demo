@@ -27,18 +27,21 @@ def makeCookie(name, value):
         rest=None
     )
 
-# Making use of the cookies:
+# Create a cookie jar to store our custom cookies.
 jar = CookieJar()
 
+# Generate a request to make use of these cookies.
 request = Request(url="http://kahdev.bur.st/python/cookies/receiver.php")
 
+# Use makeCookie to generate a cookie and add it to the cookie jar.
 jar.set_cookie(makeCookie("name", "kahdev"))
 jar.set_cookie(makeCookie("where", "here"))
-#jar.add_cookie_header(request)
+
+# Add the cookies from the jar to the request.
+jar.add_cookie_header(request)
 
 # Now, let us try open and read.
 opener = urllib2.build_opener()
-request.add_header("Cookie", "something=test+1+2+3; source=script")
 f = opener.open(request)
 
 print "Server responds with: "
